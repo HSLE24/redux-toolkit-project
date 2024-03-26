@@ -6,23 +6,18 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { productAction } from '../redux/actions/productAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductDetail = () => {
 
     let {id} = useParams();
 
-    const [prodDetail, setProdDetail] = useState({})
-
+    const prodDetail = useSelector(state=>state.product.prodDetail);
+    
+    const dispatch = useDispatch();
     const getProductDetail= async ()=>{
-        try{
-            let url = `https://my-json-server.typicode.com/HSLE24/hnm-test/products/${id}`
-            const response = await fetch(url);
-            const data = await response.json();
-            setProdDetail(data);
-        }
-        catch{
-            console.log("실패 실패")
-        }
+        dispatch(productAction.getProductDetail(id));
     }
 
     useEffect(()=>{

@@ -3,8 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from'@fortawesome/free-regular-svg-icons'
 import { faMagnifyingGlass } from'@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 
-const Navbar = ({ authenticate, setAuthenticate, menus }) => {
+const Navbar = ({ setAuthenticate, menus }) => {
+
+    let authenticate = useSelector(state=>state.auth.authenticate);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -13,7 +17,7 @@ const Navbar = ({ authenticate, setAuthenticate, menus }) => {
     }
 
     const goToLogout=()=>{
-        setAuthenticate(false);
+        dispatch({type: "LOGIN_STATE_CHANGE", payload: {authenticate:false}})
         navigate("/login");
     }
 
