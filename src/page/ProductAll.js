@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from '../component/ProductCard';
 import { Container, Row, Col }  from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
-import { productAction } from '../redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../redux/slice/productSlice'
 
 const ProductAll = () => {
  
@@ -11,15 +11,16 @@ const ProductAll = () => {
   const [query, setQuery] = useSearchParams();
   const dispatch = useDispatch();
 
-  const getProducts= ()=>{
+  const getAllProducts= ()=>{
 
     let searchQuery = query.get('q') || "";
     console.log("쿼리 ", searchQuery);
-    dispatch(productAction.getProducts(searchQuery));
+    //dispatch(productAction.getProducts(searchQuery));
+    dispatch(getProducts(searchQuery));
   }
 
   useEffect(()=>{
-    getProducts();
+    getAllProducts();
   }, [query])
 
   return (

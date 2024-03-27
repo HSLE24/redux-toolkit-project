@@ -6,8 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { productAction } from '../redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { getProductDetail } from '../redux/slice/productSlice'
 
 const ProductDetail = () => {
 
@@ -16,12 +16,13 @@ const ProductDetail = () => {
     const prodDetail = useSelector(state=>state.product.prodDetail);
     
     const dispatch = useDispatch();
-    const getProductDetail= async ()=>{
-        dispatch(productAction.getProductDetail(id));
+    const getProductDetailItem= async ()=>{
+        //dispatch(productAction.getProductDetail(id));
+        dispatch(getProductDetail(id))
     }
 
     useEffect(()=>{
-        getProductDetail();
+        getProductDetailItem();
     }, [])
 
   return (
